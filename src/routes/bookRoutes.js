@@ -8,7 +8,6 @@ const validateBody = require('../middlewares/validateBody');
 
 const bookSchema = {
   name: { required: true, maxLength: 255 },
-  email: { required: true, maxLength: 255, email: true },
   phone: { maxLength: 50 },
   hairstyle: { maxLength: 100 },
   preferred_date: { maxLength: 20 },

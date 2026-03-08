@@ -12,7 +12,7 @@ async function create(req, res, next) {
     const b = req.sanitizedBody;
     const contact = await orderService.saveContact({
       name: b.name,
-      email: b.email,
+      phone: b.phone,
       subject: b.subject,
       message: b.message,
     });
@@ -22,7 +22,7 @@ async function create(req, res, next) {
       data: {
         id: contact.id,
         name: contact.name,
-        email: contact.email,
+        phone: contact.phone,
         subject: contact.subject,
         message: contact.message,
         created_at: contact.created_at,

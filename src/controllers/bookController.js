@@ -1,22 +1,21 @@
 /**
- * Book controller - haircut appointment booking (saved to MongoDB as order)
+ * Book controller - appointment booking (MongoDB)
  */
 const orderService = require('../services/orderService');
 
 /**
  * POST /api/book
- * Create a booking request (stored as order in MongoDB for admin to browse)
+ * Create a booking
  */
 async function create(req, res, next) {
   try {
     const b = req.sanitizedBody;
-    const order = await orderService.createOrder({
+    const order = await orderService.saveOrder({
       name: b.name,
-      email: b.email,
       phone: b.phone,
       hairstyle: b.hairstyle,
-      preferredDate: b.preferred_date,
-      preferredTime: b.preferred_time,
+      preferred_date: b.preferred_date,
+      preferred_time: b.preferred_time,
       notes: b.notes,
     });
 
@@ -25,12 +24,12 @@ async function create(req, res, next) {
       data: {
         id: order.id,
         name: order.name,
-        email: order.email,
         phone: order.phone,
         hairstyle: order.hairstyle,
         preferred_date: order.preferred_date,
         preferred_time: order.preferred_time,
         notes: order.notes,
+        status: order.status,
         created_at: order.created_at,
       },
     });

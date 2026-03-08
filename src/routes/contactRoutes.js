@@ -8,7 +8,7 @@ const validateBody = require('../middlewares/validateBody');
 
 const contactSchema = {
   name: { required: true, maxLength: 255 },
-  email: { required: true, maxLength: 255, email: true },
+  phone: { required: true, maxLength: 50 },
   subject: { maxLength: 255 },
   message: { required: true, maxLength: 5000 },
 };
