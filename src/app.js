@@ -5,6 +5,8 @@ const express = require('express');
 const cors = require('cors');
 const bookRoutes = require('./routes/bookRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const authRoutes = require('./routes/authRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 
@@ -26,5 +28,7 @@ app.get('/health', async (req, res) => {
 
 app.use('/api/book', bookRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 
 module.exports = app;
