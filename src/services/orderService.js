@@ -154,6 +154,16 @@ async function deleteOrder(id) {
   return result.deletedCount > 0;
 }
 
+/**
+ * Delete contact
+ */
+async function deleteContact(id) {
+  const d = await getDb();
+  const coll = d.collection(CONTACTS_COLL);
+  const result = await coll.deleteOne({ _id: new ObjectId(id) });
+  return result.deletedCount > 0;
+}
+
 module.exports = {
   checkConnection,
   saveOrder,
@@ -162,4 +172,5 @@ module.exports = {
   getContacts,
   updateOrderStatus,
   deleteOrder,
+  deleteContact,
 };

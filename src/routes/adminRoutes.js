@@ -50,4 +50,15 @@ router.delete('/orders/:id', async (req, res) => {
   }
 });
 
+router.delete('/contacts/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const ok = await orderService.deleteContact(id);
+    if (!ok) return res.status(404).json({ success: false, message: 'Contact not found' });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message || 'Delete failed' });
+  }
+});
+
 module.exports = router;
