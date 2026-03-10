@@ -1,21 +1,21 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+const adminService = require('../services/adminService');
 
-function login(req, res) {
+async function login(req, res) {
   const { email, password } = req.body || {};
-  const adminEmail = config.admin.email;
-  const adminPassword = config.admin.password;
 
   if (!email || !password) {
     return res.status(400).json({ success: false, message: 'Email and password required' });
   }
 
-  if (String(email).trim() !== adminEmail || password !== adminPassword) {
+  const admin = await adminService.verifyAdmin(email, password);
+  if (!admin) {
     return res.status(401).json({ success: false, message: 'Invalid credentials' });
   }
 
   const token = jwt.sign(
-    { sub: adminEmail, role: 'admin' },
+    { sub: admin.email, role: 'admin' },
     config.admin.jwtSecret,
     { expiresIn: '7d' }
   );

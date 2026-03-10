@@ -5,6 +5,7 @@
 const app = require('./app');
 const config = require('./config');
 const orderService = require('./services/orderService');
+const adminService = require('./services/adminService');
 const path = require('path');
 const fs = require('fs');
 
@@ -23,6 +24,12 @@ const server = app.listen(PORT, async () => {
   const mongo = await orderService.checkConnection();
   if (mongo.status !== 'connected') {
     console.warn('Warning: MongoDB not connected.', mongo.message || '');
+  } else {
+    try {
+      await adminService.seedAdminFromEnv();
+    } catch (err) {
+      console.warn('Admin seed failed:', err.message);
+    }
   }
 });
 
